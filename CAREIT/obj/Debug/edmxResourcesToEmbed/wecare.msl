@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ucareModelStoreContainer" CdmEntityContainer="ucareEntities1">
+    <EntitySetMapping Name="categories">
+      <EntityTypeMapping TypeName="ucareModel.category">
+        <MappingFragment StoreEntitySet="categories">
+          <ScalarProperty Name="Id_category" ColumnName="Id_category" />
+          <ScalarProperty Name="name_category" ColumnName="name_category" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="employees">
+      <EntityTypeMapping TypeName="ucareModel.employee">
+        <MappingFragment StoreEntitySet="employees">
+          <ScalarProperty Name="Id_employee" ColumnName="Id_employee" />
+          <ScalarProperty Name="name_employee" ColumnName="name_employee" />
+          <ScalarProperty Name="code_employee" ColumnName="code_employee" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="contact" ColumnName="contact" />
+          <ScalarProperty Name="fk_id_role" ColumnName="fk_id_role" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="insurances">
+      <EntityTypeMapping TypeName="ucareModel.insurance">
+        <MappingFragment StoreEntitySet="insurances">
+          <ScalarProperty Name="Id_insurance" ColumnName="Id_insurance" />
+          <ScalarProperty Name="name_insurance" ColumnName="name_insurance" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="medicines">
+      <EntityTypeMapping TypeName="ucareModel.medicine">
+        <MappingFragment StoreEntitySet="medicines">
+          <ScalarProperty Name="Id_medicine" ColumnName="Id_medicine" />
+          <ScalarProperty Name="name_medicine" ColumnName="name_medicine" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="stok" ColumnName="stok" />
+          <ScalarProperty Name="fk_id_category" ColumnName="fk_id_category" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="patients">
+      <EntityTypeMapping TypeName="ucareModel.patient">
+        <MappingFragment StoreEntitySet="patients">
+          <ScalarProperty Name="Id_patient" ColumnName="Id_patient" />
+          <ScalarProperty Name="name_patient" ColumnName="name_patient" />
+          <ScalarProperty Name="contact" ColumnName="contact" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="fk_id_insurance" ColumnName="fk_id_insurance" />
+          <ScalarProperty Name="code_insurance" ColumnName="code_insurance" />
+          <ScalarProperty Name="code_identity" ColumnName="code_identity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="queues">
+      <EntityTypeMapping TypeName="ucareModel.queue">
+        <MappingFragment StoreEntitySet="queues">
+          <ScalarProperty Name="Id_queue" ColumnName="Id_queue" />
+          <ScalarProperty Name="fk_id_patient" ColumnName="fk_id_patient" />
+          <ScalarProperty Name="time_queue" ColumnName="time_queue" />
+          <ScalarProperty Name="status_queue" ColumnName="status_queue" />
+          <ScalarProperty Name="type_queue" ColumnName="type_queue" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="roles">
+      <EntityTypeMapping TypeName="ucareModel.role">
+        <MappingFragment StoreEntitySet="roles">
+          <ScalarProperty Name="Id_role" ColumnName="Id_role" />
+          <ScalarProperty Name="name_role" ColumnName="name_role" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="transactions">
+      <EntityTypeMapping TypeName="ucareModel.transaction">
+        <MappingFragment StoreEntitySet="transactions">
+          <ScalarProperty Name="Id_transaction" ColumnName="Id_transaction" />
+          <ScalarProperty Name="fk_id_employee" ColumnName="fk_id_employee" />
+          <ScalarProperty Name="fk_id_medicine" ColumnName="fk_id_medicine" />
+          <ScalarProperty Name="qty_medicine" ColumnName="qty_medicine" />
+          <ScalarProperty Name="amount" ColumnName="amount" />
+          <ScalarProperty Name="time" ColumnName="time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,75 @@
+﻿<UserControl x:Class="CAREIT.Employees"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:CAREIT"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <materialDesign:TransitioningContent x:Name="TransitioningContentSlide" OpeningEffect="{materialDesign:TransitionEffect SlideInFromLeft, Duration=0:0:0.2}">
+            <Grid>
+                <Label FontSize="30">List of Employees</Label>
+                <Grid Margin="221,82,445,316.6">
+                    <Button Click="btnAdd_click" Height="Auto" Margin="10,10,5,10" Background="#FF374DC5" BorderBrush="{x:Null}" Foreground="#DDFFFFFF">
+                        <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="154">
+                            <Label FontSize="10" Margin="49,0,25,0.4" Foreground="White">Add Employee</Label>
+                            <materialDesign:PackIcon Kind="Add" Margin="27,0,0,0" Height="22" Width="22"/>
+                        </Grid>
+                    </Button>
+                </Grid>
+
+                <DataGrid IsReadOnly="True" x:Name="dgridEmployees" HorizontalAlignment="Left" Height="301" Margin="10,138,0,0" VerticalAlignment="Top" Width="401" Background="Transparent" AutoGenerateColumns="False" SelectionChanged="DgridEmployees_SelectionChanged">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Visibility="Hidden" Header="Id" Binding="{Binding Id_employee}"/>
+                        <DataGridTextColumn MaxWidth="160" Header="Name" Binding="{Binding name_employee}"/>
+                        <DataGridTextColumn Header="Code" Binding="{Binding code_employee}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <materialDesign:PackIcon Kind="Search" RenderTransformOrigin="2.033,8.233" Margin="29,95,0,0" Height="20" Width="20"/>
+                <TextBox Name="searchbox" KeyDown="search_employee" HorizontalAlignment="Left" Height="23" Margin="49,95,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="133"/>
+
+                <Grid Margin="416,138,32,10.6">
+
+                    <GroupBox Header="Detail Employee" Margin="10,10,10,0">
+                        <Grid Margin="0,0,0,13">
+                            <Label Margin="0,2,10.4,199.8" Content="Name"/>
+                            <TextBox x:Name="txtName" Margin="0,20,0.4,181.8"/>
+                            <Label Margin="0,51,192.6,151">Code Employee</Label>
+                            <TextBox x:Name="txtCode" Margin="0,69,192.6,133"/>
+                            <TextBox x:Name="txtContact" Margin="198,69,1.6,133"/>
+                            <Label Margin="198,51,1.6,151" Content="Contact"/>
+                            <Label Margin="0,100,192.6,102" Content="Address"/>
+                            <TextBox x:Name="txtAddress" Margin="0,118,192.6,84"/>
+                            <Label Margin="198,100,1.6,102" Content="Role"/>
+                            <ComboBox Name="cbRole" Margin="198,118,1.6,84">
+                            </ComboBox>
+                            <Label Margin="0,149,192.6,53" Content="Username"/>
+                            <TextBox IsReadOnly="True" x:Name="txtUsername" Margin="0,167,192.6,35"/>
+                            <PasswordBox x:Name="txtPassword" Margin="198,167,1.6,35"/>
+                            <Label Margin="198,149,1.6,53" Content="New Password"/>
+                            <Button Margin="0,210,192.6,-9" Click="btnEdit_click" Height="Auto" Background="#FF3AB74D" BorderBrush="#FF3AB74D">
+                                <Grid>
+                                    <materialDesign:PackIcon Kind="Edit" Margin="-11,0,0,0" Height="15"/>
+                                    <Label Foreground="White" FontSize="10" Margin="7,-3,-6.8,-7.8">Edit Data</Label>
+
+                                </Grid>
+                            </Button>
+                            <Button Click="btnDelete_click" Margin="198,210,-1.4,-9" Height="Auto" Background="#FFB73A3A" BorderBrush="#FFB73A3A">
+                                <Grid>
+                                    <materialDesign:PackIcon Kind="Delete" Margin="-11,0,0,0" Height="15"/>
+                                    <Label Foreground="White" FontSize="10" Margin="7,-3,-6.8,-7.8" Content="Delete"/>
+
+                                </Grid>
+                            </Button>
+                        </Grid>
+                    </GroupBox>
+
+
+                </Grid>
+
+            </Grid>
+        </materialDesign:TransitioningContent>
+    </Grid>
+</UserControl>

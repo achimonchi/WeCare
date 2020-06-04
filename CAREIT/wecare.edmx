@@ -1,0 +1,504 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ucareModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="categories">
+          <Key>
+            <PropertyRef Name="Id_category" />
+          </Key>
+          <Property Name="Id_category" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_category" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="employees">
+          <Key>
+            <PropertyRef Name="Id_employee" />
+          </Key>
+          <Property Name="Id_employee" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_employee" Type="nchar" MaxLength="50" />
+          <Property Name="code_employee" Type="nchar" MaxLength="10" />
+          <Property Name="address" Type="nchar" MaxLength="100" />
+          <Property Name="contact" Type="nchar" MaxLength="20" />
+          <Property Name="fk_id_role" Type="int" />
+          <Property Name="username" Type="nchar" MaxLength="50" />
+          <Property Name="password" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="insurances">
+          <Key>
+            <PropertyRef Name="Id_insurance" />
+          </Key>
+          <Property Name="Id_insurance" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_insurance" Type="nchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="medicines">
+          <Key>
+            <PropertyRef Name="Id_medicine" />
+          </Key>
+          <Property Name="Id_medicine" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_medicine" Type="nchar" MaxLength="50" />
+          <Property Name="price" Type="int" />
+          <Property Name="stok" Type="int" />
+          <Property Name="fk_id_category" Type="int" />
+        </EntityType>
+        <EntityType Name="patients">
+          <Key>
+            <PropertyRef Name="Id_patient" />
+          </Key>
+          <Property Name="Id_patient" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_patient" Type="nchar" MaxLength="50" />
+          <Property Name="contact" Type="nchar" MaxLength="15" />
+          <Property Name="address" Type="nchar" MaxLength="50" />
+          <Property Name="fk_id_insurance" Type="int" />
+          <Property Name="code_insurance" Type="nchar" MaxLength="20" />
+          <Property Name="code_identity" Type="nchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="queues">
+          <Key>
+            <PropertyRef Name="Id_queue" />
+          </Key>
+          <Property Name="Id_queue" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_id_patient" Type="int" />
+          <Property Name="time_queue" Type="datetimeoffset" Precision="7" Nullable="false" />
+          <Property Name="status_queue" Type="nchar" MaxLength="50" />
+          <Property Name="type_queue" Type="int" />
+        </EntityType>
+        <EntityType Name="roles">
+          <Key>
+            <PropertyRef Name="Id_role" />
+          </Key>
+          <Property Name="Id_role" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name_role" Type="nchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="transactions">
+          <Key>
+            <PropertyRef Name="Id_transaction" />
+          </Key>
+          <Property Name="Id_transaction" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_id_employee" Type="int" />
+          <Property Name="fk_id_medicine" Type="int" />
+          <Property Name="qty_medicine" Type="int" />
+          <Property Name="amount" Type="int" />
+          <Property Name="time" Type="datetimeoffset" Precision="7" />
+        </EntityType>
+        <Association Name="FK__employees__fk_id__403A8C7D">
+          <End Role="roles" Type="Self.roles" Multiplicity="0..1" />
+          <End Role="employees" Type="Self.employees" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="Id_role" />
+            </Principal>
+            <Dependent Role="employees">
+              <PropertyRef Name="fk_id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__medicines__fk_id__4316F928">
+          <End Role="categories" Type="Self.categories" Multiplicity="0..1" />
+          <End Role="medicines" Type="Self.medicines" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categories">
+              <PropertyRef Name="Id_category" />
+            </Principal>
+            <Dependent Role="medicines">
+              <PropertyRef Name="fk_id_category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__patients__fk_id___3D5E1FD2">
+          <End Role="insurances" Type="Self.insurances" Multiplicity="0..1" />
+          <End Role="patients" Type="Self.patients" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insurances">
+              <PropertyRef Name="Id_insurance" />
+            </Principal>
+            <Dependent Role="patients">
+              <PropertyRef Name="fk_id_insurance" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__queues__fk_id_pa__778AC167">
+          <End Role="patients" Type="Self.patients" Multiplicity="0..1" />
+          <End Role="queues" Type="Self.queues" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patients">
+              <PropertyRef Name="Id_patient" />
+            </Principal>
+            <Dependent Role="queues">
+              <PropertyRef Name="fk_id_patient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__transacti__fk_id__160F4887">
+          <End Role="employees" Type="Self.employees" Multiplicity="0..1" />
+          <End Role="transactions" Type="Self.transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="Id_employee" />
+            </Principal>
+            <Dependent Role="transactions">
+              <PropertyRef Name="fk_id_employee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__transacti__fk_id__17036CC0">
+          <End Role="medicines" Type="Self.medicines" Multiplicity="0..1" />
+          <End Role="transactions" Type="Self.transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="medicines">
+              <PropertyRef Name="Id_medicine" />
+            </Principal>
+            <Dependent Role="transactions">
+              <PropertyRef Name="fk_id_medicine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ucareModelStoreContainer">
+          <EntitySet Name="categories" EntityType="Self.categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="employees" EntityType="Self.employees" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="insurances" EntityType="Self.insurances" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="medicines" EntityType="Self.medicines" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="patients" EntityType="Self.patients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="queues" EntityType="Self.queues" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="transactions" EntityType="Self.transactions" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__employees__fk_id__403A8C7D" Association="Self.FK__employees__fk_id__403A8C7D">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="employees" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__medicines__fk_id__4316F928" Association="Self.FK__medicines__fk_id__4316F928">
+            <End Role="categories" EntitySet="categories" />
+            <End Role="medicines" EntitySet="medicines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__patients__fk_id___3D5E1FD2" Association="Self.FK__patients__fk_id___3D5E1FD2">
+            <End Role="insurances" EntitySet="insurances" />
+            <End Role="patients" EntitySet="patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__queues__fk_id_pa__778AC167" Association="Self.FK__queues__fk_id_pa__778AC167">
+            <End Role="patients" EntitySet="patients" />
+            <End Role="queues" EntitySet="queues" />
+          </AssociationSet>
+          <AssociationSet Name="FK__transacti__fk_id__160F4887" Association="Self.FK__transacti__fk_id__160F4887">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="transactions" EntitySet="transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__transacti__fk_id__17036CC0" Association="Self.FK__transacti__fk_id__17036CC0">
+            <End Role="medicines" EntitySet="medicines" />
+            <End Role="transactions" EntitySet="transactions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ucareModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="category">
+          <Key>
+            <PropertyRef Name="Id_category" />
+          </Key>
+          <Property Name="Id_category" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_category" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="medicines" Relationship="Self.FK__medicines__fk_id__4316F928" FromRole="categories" ToRole="medicines" />
+        </EntityType>
+        <EntityType Name="employee">
+          <Key>
+            <PropertyRef Name="Id_employee" />
+          </Key>
+          <Property Name="Id_employee" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_employee" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="code_employee" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="contact" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="fk_id_role" Type="Int32" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="role" Relationship="Self.FK__employees__fk_id__403A8C7D" FromRole="employees" ToRole="roles" />
+          <NavigationProperty Name="transactions" Relationship="Self.FK__transacti__fk_id__02FC7413" FromRole="employees" ToRole="transactions" />
+        </EntityType>
+        <EntityType Name="insurance">
+          <Key>
+            <PropertyRef Name="Id_insurance" />
+          </Key>
+          <Property Name="Id_insurance" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_insurance" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="patients" Relationship="Self.FK__patients__fk_id___3D5E1FD2" FromRole="insurances" ToRole="patients" />
+        </EntityType>
+        <EntityType Name="medicine">
+          <Key>
+            <PropertyRef Name="Id_medicine" />
+          </Key>
+          <Property Name="Id_medicine" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_medicine" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="price" Type="Int32" />
+          <Property Name="stok" Type="Int32" />
+          <Property Name="fk_id_category" Type="Int32" />
+          <NavigationProperty Name="category" Relationship="Self.FK__medicines__fk_id__4316F928" FromRole="medicines" ToRole="categories" />
+          <NavigationProperty Name="transactions" Relationship="Self.FK__transacti__fk_id__03F0984C" FromRole="medicines" ToRole="transactions" />
+        </EntityType>
+        <EntityType Name="patient">
+          <Key>
+            <PropertyRef Name="Id_patient" />
+          </Key>
+          <Property Name="Id_patient" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_patient" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="contact" Type="String" MaxLength="15" FixedLength="true" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="fk_id_insurance" Type="Int32" />
+          <Property Name="code_insurance" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Name="code_identity" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="insurance" Relationship="Self.FK__patients__fk_id___3D5E1FD2" FromRole="patients" ToRole="insurances" />
+          <NavigationProperty Name="queues" Relationship="Self.FK__queues__fk_id_pa__778AC167" FromRole="patients" ToRole="queues" />
+        </EntityType>
+        <EntityType Name="queue">
+          <Key>
+            <PropertyRef Name="Id_queue" />
+          </Key>
+          <Property Name="Id_queue" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_id_patient" Type="Int32" />
+          <Property Name="time_queue" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <Property Name="status_queue" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
+          <Property Name="type_queue" Type="Int32" />
+          <NavigationProperty Name="patient" Relationship="Self.FK__queues__fk_id_pa__778AC167" FromRole="queues" ToRole="patients" />
+        </EntityType>
+        <EntityType Name="role">
+          <Key>
+            <PropertyRef Name="Id_role" />
+          </Key>
+          <Property Name="Id_role" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name_role" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
+          <NavigationProperty Name="employees" Relationship="Self.FK__employees__fk_id__403A8C7D" FromRole="roles" ToRole="employees" />
+        </EntityType>
+        <EntityType Name="transaction">
+          <Key>
+            <PropertyRef Name="Id_transaction" />
+          </Key>
+          <Property Name="Id_transaction" Type="Int32" Nullable="false" />
+          <Property Name="fk_id_employee" Type="Int32" />
+          <Property Name="fk_id_medicine" Type="Int32" />
+          <Property Name="qty_medicine" Type="Int32" />
+          <Property Name="amount" Type="Int32" />
+          <Property Name="time" Type="DateTimeOffset" Precision="7" />
+          <NavigationProperty Name="employee" Relationship="Self.FK__transacti__fk_id__02FC7413" FromRole="transactions" ToRole="employees" />
+          <NavigationProperty Name="medicine" Relationship="Self.FK__transacti__fk_id__03F0984C" FromRole="transactions" ToRole="medicines" />
+        </EntityType>
+        <Association Name="FK__medicines__fk_id__4316F928">
+          <End Role="categories" Type="Self.category" Multiplicity="0..1" />
+          <End Role="medicines" Type="Self.medicine" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categories">
+              <PropertyRef Name="Id_category" />
+            </Principal>
+            <Dependent Role="medicines">
+              <PropertyRef Name="fk_id_category" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__employees__fk_id__403A8C7D">
+          <End Role="roles" Type="Self.role" Multiplicity="0..1" />
+          <End Role="employees" Type="Self.employee" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="roles">
+              <PropertyRef Name="Id_role" />
+            </Principal>
+            <Dependent Role="employees">
+              <PropertyRef Name="fk_id_role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__transacti__fk_id__02FC7413">
+          <End Role="employees" Type="Self.employee" Multiplicity="0..1" />
+          <End Role="transactions" Type="Self.transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="employees">
+              <PropertyRef Name="Id_employee" />
+            </Principal>
+            <Dependent Role="transactions">
+              <PropertyRef Name="fk_id_employee" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__patients__fk_id___3D5E1FD2">
+          <End Role="insurances" Type="Self.insurance" Multiplicity="0..1" />
+          <End Role="patients" Type="Self.patient" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="insurances">
+              <PropertyRef Name="Id_insurance" />
+            </Principal>
+            <Dependent Role="patients">
+              <PropertyRef Name="fk_id_insurance" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__transacti__fk_id__03F0984C">
+          <End Role="medicines" Type="Self.medicine" Multiplicity="0..1" />
+          <End Role="transactions" Type="Self.transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="medicines">
+              <PropertyRef Name="Id_medicine" />
+            </Principal>
+            <Dependent Role="transactions">
+              <PropertyRef Name="fk_id_medicine" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__queues__fk_id_pa__778AC167">
+          <End Role="patients" Type="Self.patient" Multiplicity="0..1" />
+          <End Role="queues" Type="Self.queue" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="patients">
+              <PropertyRef Name="Id_patient" />
+            </Principal>
+            <Dependent Role="queues">
+              <PropertyRef Name="fk_id_patient" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ucareEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="categories" EntityType="Self.category" />
+          <EntitySet Name="employees" EntityType="Self.employee" />
+          <EntitySet Name="insurances" EntityType="Self.insurance" />
+          <EntitySet Name="medicines" EntityType="Self.medicine" />
+          <EntitySet Name="patients" EntityType="Self.patient" />
+          <EntitySet Name="queues" EntityType="Self.queue" />
+          <EntitySet Name="roles" EntityType="Self.role" />
+          <EntitySet Name="transactions" EntityType="Self.transaction" />
+          <AssociationSet Name="FK__medicines__fk_id__4316F928" Association="Self.FK__medicines__fk_id__4316F928">
+            <End Role="categories" EntitySet="categories" />
+            <End Role="medicines" EntitySet="medicines" />
+          </AssociationSet>
+          <AssociationSet Name="FK__employees__fk_id__403A8C7D" Association="Self.FK__employees__fk_id__403A8C7D">
+            <End Role="roles" EntitySet="roles" />
+            <End Role="employees" EntitySet="employees" />
+          </AssociationSet>
+          <AssociationSet Name="FK__transacti__fk_id__02FC7413" Association="Self.FK__transacti__fk_id__02FC7413">
+            <End Role="employees" EntitySet="employees" />
+            <End Role="transactions" EntitySet="transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__patients__fk_id___3D5E1FD2" Association="Self.FK__patients__fk_id___3D5E1FD2">
+            <End Role="insurances" EntitySet="insurances" />
+            <End Role="patients" EntitySet="patients" />
+          </AssociationSet>
+          <AssociationSet Name="FK__transacti__fk_id__03F0984C" Association="Self.FK__transacti__fk_id__03F0984C">
+            <End Role="medicines" EntitySet="medicines" />
+            <End Role="transactions" EntitySet="transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__queues__fk_id_pa__778AC167" Association="Self.FK__queues__fk_id_pa__778AC167">
+            <End Role="patients" EntitySet="patients" />
+            <End Role="queues" EntitySet="queues" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ucareModelStoreContainer" CdmEntityContainer="ucareEntities1">
+          <EntitySetMapping Name="categories">
+            <EntityTypeMapping TypeName="ucareModel.category">
+              <MappingFragment StoreEntitySet="categories">
+                <ScalarProperty Name="Id_category" ColumnName="Id_category" />
+                <ScalarProperty Name="name_category" ColumnName="name_category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="employees">
+            <EntityTypeMapping TypeName="ucareModel.employee">
+              <MappingFragment StoreEntitySet="employees">
+                <ScalarProperty Name="Id_employee" ColumnName="Id_employee" />
+                <ScalarProperty Name="name_employee" ColumnName="name_employee" />
+                <ScalarProperty Name="code_employee" ColumnName="code_employee" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="contact" ColumnName="contact" />
+                <ScalarProperty Name="fk_id_role" ColumnName="fk_id_role" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="password" ColumnName="password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="insurances">
+            <EntityTypeMapping TypeName="ucareModel.insurance">
+              <MappingFragment StoreEntitySet="insurances">
+                <ScalarProperty Name="Id_insurance" ColumnName="Id_insurance" />
+                <ScalarProperty Name="name_insurance" ColumnName="name_insurance" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="medicines">
+            <EntityTypeMapping TypeName="ucareModel.medicine">
+              <MappingFragment StoreEntitySet="medicines">
+                <ScalarProperty Name="Id_medicine" ColumnName="Id_medicine" />
+                <ScalarProperty Name="name_medicine" ColumnName="name_medicine" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="stok" ColumnName="stok" />
+                <ScalarProperty Name="fk_id_category" ColumnName="fk_id_category" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="patients">
+            <EntityTypeMapping TypeName="ucareModel.patient">
+              <MappingFragment StoreEntitySet="patients">
+                <ScalarProperty Name="Id_patient" ColumnName="Id_patient" />
+                <ScalarProperty Name="name_patient" ColumnName="name_patient" />
+                <ScalarProperty Name="contact" ColumnName="contact" />
+                <ScalarProperty Name="address" ColumnName="address" />
+                <ScalarProperty Name="fk_id_insurance" ColumnName="fk_id_insurance" />
+                <ScalarProperty Name="code_insurance" ColumnName="code_insurance" />
+                <ScalarProperty Name="code_identity" ColumnName="code_identity" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="queues">
+            <EntityTypeMapping TypeName="ucareModel.queue">
+              <MappingFragment StoreEntitySet="queues">
+                <ScalarProperty Name="Id_queue" ColumnName="Id_queue" />
+                <ScalarProperty Name="fk_id_patient" ColumnName="fk_id_patient" />
+                <ScalarProperty Name="time_queue" ColumnName="time_queue" />
+                <ScalarProperty Name="status_queue" ColumnName="status_queue" />
+                <ScalarProperty Name="type_queue" ColumnName="type_queue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="roles">
+            <EntityTypeMapping TypeName="ucareModel.role">
+              <MappingFragment StoreEntitySet="roles">
+                <ScalarProperty Name="Id_role" ColumnName="Id_role" />
+                <ScalarProperty Name="name_role" ColumnName="name_role" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="transactions">
+            <EntityTypeMapping TypeName="ucareModel.transaction">
+              <MappingFragment StoreEntitySet="transactions">
+                <ScalarProperty Name="Id_transaction" ColumnName="Id_transaction" />
+                <ScalarProperty Name="fk_id_employee" ColumnName="fk_id_employee" />
+                <ScalarProperty Name="fk_id_medicine" ColumnName="fk_id_medicine" />
+                <ScalarProperty Name="qty_medicine" ColumnName="qty_medicine" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="time" ColumnName="time" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
